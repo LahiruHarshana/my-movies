@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), "Inter", sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;
+}
+
+:root {
+  --foreground-rgb: 200, 196, 188;
+  --background-start-rgb: 26, 26, 26;
+  --background-end-rgb: 26, 26, 26;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-start-rgb));
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #8b3a2a;
+}
+
+.poster-shell {
+  background: linear-gradient(135deg, rgba(200,196,188,0.2) 0%, rgba(26,26,26,0.8) 40%, rgba(139,58,42,0.3) 100%);
+}
+
+.flicker-text {
+  animation: flicker 4s infinite;
+}
+
+@keyframes flicker {
+  0%,100%{opacity:1;}
+  50%{opacity:0.6;}
+  51%{opacity:0.9;}
+  52%{opacity:0.5;}
+  53%{opacity:1;}
+}
