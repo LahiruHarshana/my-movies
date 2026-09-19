@@ -4,7 +4,7 @@ import SearchBar from "@/components/movies/SearchBar";
 import FilterBar from "@/components/movies/FilterBar";
 import { applyYearToDiscoverParams } from "@/lib/year-filters";
 
-export default async function SearchPage(props: { searchParams: Promise<{ query?: string; genre?: string; year?: string; rating?: string; sort?: string; page?: string }> }) {
+export default async function SearchPage(props: { searchParams: Promise<{ query?: string; genre?: string; year?: string; language?: string; rating?: string; sort?: string; page?: string }> }) {
   const searchParams = await props.searchParams;
   const query = searchParams.query || "";
   const genre = searchParams.genre || "";

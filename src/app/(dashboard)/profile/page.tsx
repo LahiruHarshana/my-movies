@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { connectDB } from "@/lib/mongodb";
-import User from "@/models/User";
+import User, { IUser } from "@/models/User";
 import { getGenreList } from "@/lib/tmdb";
 import ProfileForm from "@/components/profile/ProfileForm";
 import { Settings } from "lucide-react";
@@ -10,7 +10,7 @@ export default async function ProfilePage() {
   if (!session?.user?.id) return null;
 
   await connectDB();
-  const userDoc = await User.findById(session.user.id).lean();
+  const userDoc = await User.findById(session.user.id).lean<IUser>();
   if (!userDoc) return <div className="text-center mt-20 text-[#c8c4bc]/50">User not found</div>;
 
   const { genres } = await getGenreList();

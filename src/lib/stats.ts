@@ -1,10 +1,10 @@
 import { connectDB } from "./mongodb";
-import WatchedMovie from "@/models/WatchedMovie";
+import WatchedMovie, { IWatchedMovie } from "@/models/WatchedMovie";
 
 export async function getUserStats(userId: string) {
   await connectDB();
   
-  const watched = await WatchedMovie.find({ userId }).lean();
+  const watched = await WatchedMovie.find({ userId }).lean<IWatchedMovie[]>();
   
   // Basic aggregates
   const totalWatched = watched.length;
@@ -29,7 +29,7 @@ export async function getUserStats(userId: string) {
   // Genres
   const genreCounts: Record<string, number> = {};
   watched.forEach(m => {
-    m.genres?.forEach(g => {
+    m.genres?.forEach((g: { id: number; name: string }) => {
       // Ignore the "Imported" placeholder genre if we didn't map real genres perfectly
       if (g.name && g.name !== "Imported") {
         genreCounts[g.name] = (genreCounts[g.name] || 0) + 1;
@@ -48,7 +48,7 @@ export async function getUserStats(userId: string) {
   
   watched.forEach(m => {
     if (m.director) directorCounts[m.director] = (directorCounts[m.director] || 0) + 1;
-    m.cast?.forEach(c => {
+    m.cast?.forEach((c: string) => {
       castCounts[c] = (castCounts[c] || 0) + 1;
     });
   });

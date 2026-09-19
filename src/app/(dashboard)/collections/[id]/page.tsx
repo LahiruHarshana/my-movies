@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/mongodb";
-import Collection from "@/models/Collection";
+import Collection, { ICollection } from "@/models/Collection";
 import { auth } from "@/auth";
 import { FolderHeart } from "lucide-react";
 import MovieCard from "@/components/movies/MovieCard";
@@ -10,7 +10,7 @@ export default async function SingleCollectionPage(props: { params: Promise<{ id
   if (!session?.user?.id) return null;
 
   await connectDB();
-  const collection = await Collection.findOne({ _id: params.id, userId: session.user.id }).lean();
+  const collection = await Collection.findOne({ _id: params.id, userId: session.user.id }).lean<ICollection>();
 
   if (!collection) {
     return <div className="text-center mt-20 text-[#c8c4bc]/50">Collection not found.</div>;

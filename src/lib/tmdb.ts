@@ -32,7 +32,19 @@ async function tmdbFetch<T>(endpoint: string, params: Record<string, string> = {
 /**
  * Get Image URL
  */
-export function getImageUrl(path: string | null, size: "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "w1280" | "original" = "w500"): string {
+export function getImageUrl(
+  path: string | null,
+  size:
+    | "w92"
+    | "w154"
+    | "w185"
+    | "w342"
+    | "w500"
+    | "w780"
+    | "w1280"
+    | "h632"
+    | "original" = "w500"
+): string {
   if (!path) return "/placeholder-poster.png";
   const imageBase = process.env.TMDB_IMAGE_BASE_URL || "https://image.tmdb.org/t/p";
   return `${imageBase}/${size}${path}`;
